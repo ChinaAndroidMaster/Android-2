@@ -1,2 +1,1 @@
-# PorterDuffXfermode
-Canvans绘图时setXfermode的使用
+# Android
