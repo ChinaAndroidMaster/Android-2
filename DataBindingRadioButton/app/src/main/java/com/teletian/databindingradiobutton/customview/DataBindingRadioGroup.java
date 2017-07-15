@@ -83,17 +83,24 @@ public class DataBindingRadioGroup extends RadioGroup {
         this.listener = listener;
     }
 
-    interface OnValueChangedListener {
+    public interface OnValueChangedListener {
         void onValueChanged();
     }
 
-    @BindingAdapter("checkedValueAttrChanged")
-    public static void checkedChange(DataBindingRadioGroup view, final InverseBindingListener bindingListener) {
+    @BindingAdapter(value = {"onCheckedValueChanged", "checkedValueAttrChanged"}, requireAll = false)
+    public static void setValueChangedListener(DataBindingRadioGroup view,
+                                               final OnValueChangedListener valueChangedListener,
+                                               final InverseBindingListener bindingListener) {
         if (bindingListener == null) {
-            view.setListener(null);
+            view.setListener(valueChangedListener);
         } else {
-            // 通知 ViewModel
-            view.setListener(bindingListener::onChange);
+            view.setListener(() -> {
+                if (valueChangedListener != null) {
+                    valueChangedListener.onValueChanged();
+                }
+                // 通知 ViewModel
+                bindingListener.onChange();
+            });
         }
     }
 }
