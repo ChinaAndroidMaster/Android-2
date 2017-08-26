@@ -85,7 +85,9 @@ public class MainActivity extends AppCompatActivity {
      * StatusBar，NavigationBar，以及 Tab 的 Indicator 的颜色做加深处理
      */
     private int darkColorOf(int RGBValues) {
-        // 通过位移和与操作得到 R G B 的值
+        // 通过向右位移和与操作得到 R G B 的值，每个颜色值占 1 个字节（8 位）
+        // 0x 开头的表示 16 进制，0xFF 换成二进制是 1111 1111
+        // & 0xFF 进行与操作，和 1111 1111 进行与操作得到的是自身，所以相当于取出颜色值的末 8 位
         int red = RGBValues >> 16 & 0xFF;
         int green = RGBValues >> 8 & 0xFF;
         int blue = RGBValues & 0xFF;
