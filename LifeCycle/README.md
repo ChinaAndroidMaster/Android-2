@@ -54,5 +54,12 @@ B的onAttachedToWindow -> B的onWindowFocusChanged -> A的onSaveInstanceState ->
 Activity B 返回到 Activity A，依次调用
 B的onPause -> A的onRestart -> A的onStart ->  
 A的onResume -> A的onPostResume -> A的onWindowFocusChanged ->  
-B的onWindowFocusChanged -> B的onStop -> B的onDestroy -> 
+B的onWindowFocusChanged -> B的onStop -> B的onDestroy
 ```
+
+## 透明Activity
+如果 Activity B 是一个透明的 Activity。那么和普通的 Activty 的调用是有一点不一样的。  
+由于 onStop 只会在完全看不见的时候才调用，这里透明是能看得到 Activity A 的。  
+所以和普通 Activity 不同的是：  
+1. A 跳转到 B ： A 的 onPause 会调用， A 的 onStop 不会调用。
+2. B 返回到 A ： A 的 onRestart 和 onStart 不会调用， onResume 会调用。
