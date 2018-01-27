@@ -63,3 +63,43 @@ B的onWindowFocusChanged -> B的onStop -> B的onDestroy
 所以和普通 Activity 不同的是：  
 1. A 跳转到 B ： A 的 onPause 会调用， A 的 onStop 不会调用。
 2. B 返回到 A ： A 的 onRestart 和 onStart 不会调用， onResume 会调用。
+
+## FragmentActivity
+```
+启动之后依次调用  
+Activity: onCreate  
+Activity: onContentChanged  
+Activity: onStart  
+Fragment: onAttach  
+Activity: onAttachFragment  
+Fragment: onCreate  
+Fragment: onCreateView  
+Fragment: onViewCreated  
+Fragment: onActivityCreated  
+Fragment: onStart  
+Activity: onPostCreate  
+Activity: onResume  
+Activity: onPostResume  
+Fragment: onResume  
+Activity: onAttachedToWindow  
+Activity: onWindowFocusChanged  
+```
+```
+按Home键之后依次调用  
+Activity: onWindowFocusChanged  
+Activity: onPause  
+Fragment: onPause  
+Activity: onSaveInstanceState  
+Activity: onStop  
+Fragment: onStop  
+```
+```
+按Home之后，再次打开App，依次调用
+Activity: onRestart  
+Activity: onStart  
+Fragment: onStart  
+Activity: onResume  
+Activity: onPostResume  
+Fragment: onResume  
+Activity: onWindowFocusChanged  
+```
